@@ -1,0 +1,36 @@
+{
+  "name": "projects-management",
+  "version": "1.0.0",
+  "description": "Backend for the LRF flow",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "dependencies": {
+    "@socket.io/admin-ui": "^0.5.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "cron": "^4.4.0",
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-joi-validation": "^6.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.4",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.1",
+    "pdfkit": "^0.18.0",
+    "stripe": "^21.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

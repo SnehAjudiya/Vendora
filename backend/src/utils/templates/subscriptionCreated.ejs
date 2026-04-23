@@ -1,0 +1,105 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Created</title>
+  </head>
+  <body>
+    <h1>Subscription Created Successfully.</h1>
+    <h2>User: <%= user.fullName %></h2>
+    <h2>Plan: <%= subscriptionItems.name %></h2>
+
+    <div>Payment Mode: <%= paymentDetails.paymentMode %></div>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Created</title>
+  </head>
+
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+    "
+  >
+    <div
+      style="
+        max-width: 600px;
+        margin: 30px auto;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <!-- Header -->
+      <div
+        style="
+          background: #4caf50;
+          color: white;
+          padding: 20px;
+          text-align: center;
+        "
+      >
+        <h1 style="margin: 0">Subscription Confirmed</h1>
+        <p style="margin: 5px 0 0">Thank you for your purchase!</p>
+      </div>
+
+      <!-- Body -->
+      <div style="padding: 20px">
+        <h2 style="margin-bottom: 10px">User Details</h2>
+        <p><strong>Name:</strong> <%= user.fullName %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Username:</strong> <%= user.username %></p>
+
+        <hr style="margin: 20px 0" />
+
+        <h2 style="margin-bottom: 10px">Subscription Details</h2>
+        <p><strong>Plan:</strong> <%= subscriptionItems.name %></p>
+        <p><strong>Amount:</strong> ₹ <%= subscriptionItems.amount / 100 %></p>
+        <p>
+          <strong>Billing:</strong> Every <%= subscriptionItems.interval_count
+          %> <%= subscriptionItems.interval %>
+        </p>
+        <p>
+          <strong>Status:</strong> <%= subscriptionItems.subscriptionStatus %>
+        </p>
+
+        <hr style="margin: 20px 0" />
+
+        <h2 style="margin-bottom: 10px">Payment Details</h2>
+        <p><strong>Mode:</strong> <%= paymentDetails.paymentMode %></p>
+        <p><strong>Status:</strong> <%= paymentDetails.paymentStatus %></p>
+        <!-- <p>
+          <strong>Total Paid:</strong> ₹ <%= paymentDetails.amountTotal / 100 %>
+        </p> -->
+        <!-- <p>
+          <strong>Transaction ID:</strong> <%= paymentDetails.paymentIntentId %>
+        </p> -->
+      </div>
+
+      <!-- Footer -->
+      <div
+        style="
+          background: #f1f1f1;
+          padding: 15px;
+          text-align: center;
+          font-size: 12px;
+          color: #555;
+        "
+      >
+        <p style="margin: 0">
+          If you have any questions, feel free to contact support.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
