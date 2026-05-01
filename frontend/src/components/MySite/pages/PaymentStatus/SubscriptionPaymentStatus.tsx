@@ -31,10 +31,10 @@ function SubscriptionPaymentStatus({ success }: { success: boolean }) {
 
   useEffect(() => {
     if (!sessionId) return;
-    const func = async () => {
-      await subscriptionUpdateCheckoutSession(sessionId);
-    };
-    func();
+    // const func = async () => {
+    //   await subscriptionUpdateCheckoutSession(sessionId);
+    // };
+    // func();
   }, []);
 
   return (

@@ -9,6 +9,6 @@ const orderRouter = express.Router();
 orderRouter
   .route("/")
   .get(userAuth, allowRoles([AppConstants.Role.Customer]), fetchOrders)
-  .post(userAuth, allowRoles([AppConstants.Role.Customer]), createOrder);
+// .post(userAuth, allowRoles([AppConstants.Role.Customer]), createOrder);
 
 export default orderRouter;

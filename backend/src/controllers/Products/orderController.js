@@ -22,15 +22,19 @@ export const fetchOrders = async (req, res, next) => {
 export const createOrder = async (req, res, next) => {
   try {
     const { sessionId } = req.query;
-    const userId = req.user.id;
     const { updatedPaymentDetails, orderItems } = req.body;
+
+    console.log('sessionId', sessionId)
+    console.log('req.body', req.body)
+
+    const userId = updatedPaymentDetails.userId;
 
     // console.log('updatedPaymentDetails.userId', updatedPaymentDetails.userId)
     // console.log('userId', userId)
     // console.log('updatedPaymentDetails.sessionId', updatedPaymentDetails.sessionId)
     // console.log('sessionId', sessionId)
 
-    if (updatedPaymentDetails.userId !== userId || updatedPaymentDetails.sessionId !== sessionId) {
+    if (updatedPaymentDetails.sessionId !== sessionId) {
       return res.status(StatusCodes.BAD_REQUEST).json(CommonResponse.Bad_Request(MESSAGES.ORDER.USER_NOT_MATCHING));
     }
 

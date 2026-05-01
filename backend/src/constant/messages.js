@@ -95,6 +95,8 @@ export const MESSAGES = {
     NOT_CREATED: "Could not create new subscription",
     ALREADY_CREATED: "Subscription is already created with the payment id.",
     CANCELED: "Subscription canceled successfully",
+    UPDATED: "Updated subscription details successfully",
+    NOT_UPDATED: "Could not update subscription",
   },
 
   MESSAGE: {
@@ -107,6 +109,11 @@ export const MESSAGES = {
   ERROR: {
     SERVER_ERROR: "Something went wrong. Please try again later.",
     CONFLICT: "Duplicate Keys for a unique field",
+  },
+
+  WEBHOOK: {
+    EVENT_VERIFICATION_FAILED: "Webhook event verification failed or secret missing.",
+
   },
 
   REQUIRED: (arr) => {
@@ -136,7 +143,8 @@ export const MESSAGES = {
     },
 
     SUBSCRIPTION: {
-      SUBJECT: "Subcription Created Successfully"
+      SUBJECT_CREATED: "Subcription Created Successfully",
+      SUBJECT_REMINDER: "Renewal of the current Subscription",
     }
   },
 };

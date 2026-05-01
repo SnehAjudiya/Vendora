@@ -12,8 +12,8 @@ export const checkOutSession = async (req, res) => {
   const cartItems = req.body;
 
   const { stripeCustomerId } = await userModel.findOne({ _id: userId });
-  const SUCCESS_URL = `http://localhost:3000/subscriptions/payment/success?session_id={CHECKOUT_SESSION_ID}`;
-  const CANCEL_URL = "http://localhost:3000/subscriptions/payment/cancel";
+  const SUCCESS_URL = `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}`;
+  const CANCEL_URL = "http://localhost:3000/payment/cancel";
 
   const session = await stripe.checkout.sessions.create({
     customer: stripeCustomerId,
@@ -47,7 +47,7 @@ export const checkOutSession = async (req, res) => {
 
 export const updateCheckOutSession = async (req, res, next) => {
   try {
-    const { userId } = req.user.id
+    // const { userId } = req.user.id;
     const { sessionId } = req.query;
 
     const sessionObject = await stripe.checkout.sessions.retrieve(sessionId);
@@ -82,8 +82,13 @@ export const updateCheckOutSession = async (req, res, next) => {
 
     const updatedPaymentDetails = await Payments.findOne({ sessionId });
 
-    res.status(StatusCodes.OK).json(CommonResponse.Success({ updatedPaymentDetails, orderItems }, MESSAGES.PAYMENT.SESSION_RETRIEVED))
+    // res.status(StatusCodes.OK).json(CommonResponse.Success({ updatedPaymentDetails, orderItems }, MESSAGES.PAYMENT.SESSION_RETRIEVED))
 
+    req.body = { ...req.body, updatedPaymentDetails, orderItems };
+
+    console.log('req.body', req.body);
+
+    next();
   } catch (error) {
     next(error);
   }

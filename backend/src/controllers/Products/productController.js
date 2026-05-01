@@ -12,6 +12,8 @@ import { AppConstants } from "../../constant/appConstants.js";
 
 import { stripe_create_product, stripe_delete_product, stripe_fetch_products, stripe_update_product } from "../../service/stripeProductService.js";
 
+const PORT = process.env.PORT || 5000;
+
 // helper
 const badRequest = (res, message) =>
   res
@@ -535,7 +537,7 @@ export const exportProduct = async (req, res, next) => {
       });
       doc.end();
     }
-    const downloadUrl = `http://localhost:5000/exports/${fileName}`;
+    const downloadUrl = `http://localhost:${PORT}/exports/${fileName}`;
 
     return res
       .status(StatusCodes.OK)
@@ -619,7 +621,7 @@ export const exportAllProducts = async (req, res, next) => {
       doc.end();
     }
 
-    const downloadUrl = `http://localhost:5000/exports/${fileName}`;
+    const downloadUrl = `http://localhost:${PORT}/exports/${fileName}`;
 
     return res
       .status(StatusCodes.OK)

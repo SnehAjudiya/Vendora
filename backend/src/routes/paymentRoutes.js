@@ -3,6 +3,7 @@ import { checkOutPaymentDetails, checkOutSession, updateCheckOutSession } from '
 import userAuth from '../middleware/userAuth.js';
 import allowRoles from '../middleware/allowRoles.js';
 import { AppConstants } from '../constant/appConstants.js';
+import { createOrder } from '../controllers/Products/orderController.js';
 
 const paymentRouter = express.Router();
 
@@ -13,8 +14,9 @@ paymentRouter
 paymentRouter
   .route('/paymentDetails')
   .get(userAuth, allowRoles([AppConstants.Role.Customer]), checkOutPaymentDetails);
+
 paymentRouter
   .route('/update-checkout-session')
-  .put(userAuth, allowRoles([AppConstants.Role.Customer]), updateCheckOutSession)
+  .put(updateCheckOutSession, createOrder);
 
 export default paymentRouter;

@@ -16,6 +16,8 @@ const subscriptionSchema = Schema({
   stripeProductId: { type: String },
   stripePriceId: { type: String },
 
+  lastReminderSentAt: { type: Date, default: null },
+
 }, { timestamps: true, versionKey: false });
 
 export default mongoose.model("Subscription", subscriptionSchema);

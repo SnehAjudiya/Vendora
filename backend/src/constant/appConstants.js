@@ -54,4 +54,14 @@ export const AppConstants = {
     Subscription: "subscription",
     Setup: "setup",
   },
+
+  SubscriptionStatus: {
+    Active: "active",
+    Canceled: "canceled",
+  },
+
+  WebhookEventTypes: {
+    CheckoutSessionCompleted: "checkout.session.completed",
+    CustomerSubscriptionUpdated: "customer.subscription.updated",
+  }
 }

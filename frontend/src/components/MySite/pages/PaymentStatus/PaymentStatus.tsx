@@ -36,8 +36,8 @@ function PaymentStatus({ success }: { success: boolean }) {
     if (!sessionId) return;
     const func = async () => {
       await dispatch(clearCart());
-      const res = await updateCheckout(sessionId);
-      await dispatch(createOrder({ data: res, sessionId: sessionId }));
+      // const res = await updateCheckout(sessionId);
+      // await dispatch(createOrder({ data: res, sessionId: sessionId }));
     };
     func();
   }, []);

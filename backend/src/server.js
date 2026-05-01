@@ -14,8 +14,12 @@ import cartRouter from "./routes/cartRoutes.js";
 import paymentRouter from "./routes/paymentRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import subscriptionRouter from "./routes/subscriptionRoutes.js";
+import { cronJob } from "./job/subscriptionReminder.js";
+import webhookRouter from "./routes/webhookRoutes.js";
 
 connectDB();
+
+await cronJob();
 
 const PORT = process.env.PORT;
 const app = express();
@@ -27,6 +31,8 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use("/api/webhook", webhookRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

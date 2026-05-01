@@ -12,6 +12,7 @@ import cron from "cron";
 import Stripe from "stripe";
 import Payments from "../../models/Payments.js";
 import transporter, { mailOptionsHelper } from "../../config/nodemailer.js";
+import { subscriptionUpdateOnNextCycle } from "../../job/subscriptionReminder.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 
@@ -71,7 +72,7 @@ export const subscription_create_checkout_session = async (req, res, next) => {
 // update checkout session when payment success or cancel
 export const subscription_update_checkout_session = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    // const userId = req.user.id;
     const { sessionId } = req.query;
 
     const sessionObject = await stripe.checkout.sessions.retrieve(sessionId);
@@ -123,15 +124,13 @@ export const subscription_update_checkout_session = async (req, res, next) => {
 // creating a subscription in database
 export const create_subscription = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    // const userId = req.user.id;
     const { sessionId } = req.query;
     const { updatedPaymentDetails, subscriptionItems } = req.body;
 
-    console.log("updatePaymentDetails", updatedPaymentDetails);
-    console.log("userId", userId);
-    console.log("paymentDetails", subscriptionItems);
+    const userId = updatedPaymentDetails.userId;
 
-    if (String(updatedPaymentDetails.userId) !== userId || updatedPaymentDetails.sessionId !== sessionId) {
+    if (updatedPaymentDetails.sessionId !== sessionId) {
       return res.status(StatusCodes.BAD_REQUEST).json(CommonResponse.Bad_Request(MESSAGES.SUBSCRIPTION.USER_NOT_MATCHING));
     }
 
@@ -164,22 +163,11 @@ export const create_subscription = async (req, res, next) => {
     const mailOptions = mailOptionsHelper(
       process.env.SENDER_EMAIL,
       user.email,
-      MESSAGES.NODEMAILER.SUBSCRIPTION.SUBJECT,
+      MESSAGES.NODEMAILER.SUBSCRIPTION.SUBJECT_CREATED,
       html,
     )
 
     await transporter.sendMail(mailOptions);
-
-    // const task = async () => {
-    //   await transporter.sendMail(mailOptions)
-    // }
-
-    // const job = cron.CronJob.from({
-    //   cronTime: "0 9 */3 * *",
-    //   onTick: task,
-    //   start: true,
-    //   // timeZone: 
-    // })
 
     const createSubscriptionInDB = await Subscriptions.create({
       userId,
@@ -232,8 +220,25 @@ export const fetchSubscription = async (req, res, next) => {
   }
 }
 
+// Update Subscription - CronJob or Webhooks
+export const updateSubscription = async (req, res, next) => {
+  try {
+    const { subscriptionObject } = req.body;
+    const subscriptionId = subscriptionObject.id;
 
+    const subscriptionDB = await Subscriptions.findOne({ subscriptionId });
 
+    if (!subscriptionDB) {
+      return res.status(StatusCodes.BAD_REQUEST).json(CommonResponse.Bad_Request({}, MESSAGES.SUBSCRIPTION.NOT_CREATED));
+    }
+
+    const subscription = await subscriptionUpdateOnNextCycle(subscriptionDB);
+
+    res.status(StatusCodes.OK).json(CommonResponse.Success(subscription, MESSAGES.SUBSCRIPTION.UPDATED));
+  } catch (error) {
+    next(error);
+  }
+}
 
 // // Pause Subscription 
 // export const pause_subscription = async (req, res, next) => {
