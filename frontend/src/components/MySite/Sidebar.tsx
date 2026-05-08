@@ -32,7 +32,7 @@ export default function Sidebar() {
   return (
     <aside className="w-30 bg-black text-slate-300 min-h-screen flex flex-col border-r border-slate-800">
       <div className="p-6">
-        <h2 className="font-bold text-white text-3xl">E-COMMERCE</h2>
+        <h2 className="font-bold text-white text-3xl">vendora</h2>
       </div>
 
       <nav className="flex-1 px-4 space-y-1">
@@ -46,11 +46,10 @@ export default function Sidebar() {
             <Link
               key={item.name}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                isActive
-                  ? "bg-white text-black"
-                  : "hover:bg-slate-800 hover:text-white"
-              }`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
+                ? "bg-white text-black"
+                : "hover:bg-slate-800 hover:text-white"
+                }`}
             >
               <Icon size={20} />
               <span className="font-medium">{item.name}</span>
